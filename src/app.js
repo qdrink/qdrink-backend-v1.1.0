@@ -8,7 +8,7 @@ import transaccionesRoutes from "./routes/transactions";
 const app = express();
 
 // settings
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 8090);
 
 
 // middlewares
