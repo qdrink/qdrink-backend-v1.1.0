@@ -12,7 +12,7 @@ export const save = async (req) => {
   try {
     const exist = await Client.findOne({ cel: req.body.cel });
     if (exist) {
-      throw new Error("Client already exits in BD");
+      throw new Error("Cliente regristrado");
       return;
     }
     const cliente = await new Client(req.body);
