@@ -5,7 +5,7 @@ import fs from "fs";
 import wsp from "../vendors/whatsapps"; 
 
 export const findAll = async () => {
-  return await Client.find().lean();
+  return await Client.find();
 };
 
 export const save = async (req) => {
