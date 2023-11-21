@@ -2,6 +2,8 @@ import qrcode from "qrcode-terminal";
 import { Client, LocalAuth } from "whatsapp-web.js";
 import { chatInicio } from "../utils/bot";
 import { save, sendQrWsp } from "../services/clients";
+import CryptoJS from "crypto-js";
+import { STRING_KEY } from "../config";
 
 const wsp = new Client({
   authStrategy: new LocalAuth(),
@@ -43,7 +45,10 @@ function messagetoReqBody(nom, celular) {
 }
 function clientetoReqBody(cliente) {
   //se mapea el nuevo cliente al servicio de enviar qr
-  const body = { qr: cliente.id, texto: cliente.nombre, cel: cliente.cel };
+  const body = { qr: encryptQR(cliente.id), texto: cliente.nombre, cel: cliente.cel };
   const req = { body: body };
   return req;
+}
+function encryptQR(valor){
+   return CryptoJS.AES.encrypt(JSON.stringify(id), STRING_KEY).toString();
 }
