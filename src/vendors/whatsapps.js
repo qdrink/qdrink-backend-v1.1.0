@@ -50,5 +50,5 @@ function clientetoReqBody(cliente) {
   return req;
 }
 function encryptQR(valor){
-   return CryptoJS.AES.encrypt(JSON.stringify(id), STRING_KEY).toString();
+   return CryptoJS.AES.encrypt(JSON.stringify(valor), STRING_KEY).toString();
 }
