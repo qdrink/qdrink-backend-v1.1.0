@@ -15,4 +15,10 @@ const TransactionSchema = Schema(
   }
 );
 
+TransactionSchema.method("toJSON", function() {
+  const { __v, _id, ...object } = this.toObject();
+  object.id = _id;
+  return object; 
+}); 
+
 export default model("Transaction", TransactionSchema);
