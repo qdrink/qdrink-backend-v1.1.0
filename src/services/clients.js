@@ -6,17 +6,23 @@ import wsp from "../vendors/whatsapps";
 import RegistroError from "../errors/registro";
 
 export const findAll = async () => {
-  return await Client.find();
+  return await Client.find({ eliminado: false }).sort({
+    apellido: 1,
+    nombre: 1,
+  });
 };
+
 export const total = async () => {
   return await Client.countDocuments({ eliminado: false });
 };
+
 export const findById = async (req) => {
   const id = req.params.id;
   const cliente = await Client.findById(id);
-  if (cliente) return {"client":cliente};
+  if (cliente) return { client: cliente };
   else throw new Error("No existe cliente");
 };
+
 export const save = async (req) => {
   try {
     const exist = await Client.findOne({ cel: req.body.cel });
@@ -30,6 +36,7 @@ export const save = async (req) => {
     throw new Error(error);
   }
 };
+
 export const consume = async (req) => {
   try {
     const id = req.params.id;
@@ -47,6 +54,7 @@ export const consume = async (req) => {
     throw new Error(error);
   }
 };
+
 export const sendQrWsp = async (req) => {
   try {
     const buffer1 = await QRCode.toFile("qr.png", req.body.qr); // load some gif
