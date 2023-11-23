@@ -1,10 +1,20 @@
-import { findAll,consume, save, sendQrWsp } from "../services/clients";
+import {
+  findAll,
+  findById,
+  consume,
+  save,
+  total,
+  sendQrWsp,
+} from "../services/clients";
+import cutMessageError from "../utils/util";
 
 export const add = async (req, res) => {
-  if (!req.body.cel || !req.body.dinero || !req.body.nombre) {
+  if (!req.body.dinero) req.body.dinero = "0";
+
+  if (!req.body.cel || !req.body.nombre) {
     res
       .status(400)
-      .send({ message: "Celular or money or name can not be empty" });
+      .send({ message: "Money or name can not be empty" });
     return;
   }
   try {
@@ -19,6 +29,14 @@ export const add = async (req, res) => {
 export const list = async (req, res) => {
   const clientes = await findAll();
   return res.send(clientes);
+};
+export const info = async (req, res) => {
+  const clients = await total();
+  return res.send({ clients });
+};
+export const get = async (req, res) => {
+  const cliente = await findById(req);
+  return res.send(cliente);
 };
 export const getForConsume = async (req, res) => {
   try {

@@ -2,17 +2,26 @@ import Client from "../model/client";
 import { MessageMedia } from "whatsapp-web.js";
 import QRCode from "qrcode";
 import fs from "fs";
-import wsp from "../vendors/whatsapps"; 
+import wsp from "../vendors/whatsapps";
+import RegistroError from "../errors/registro";
 
 export const findAll = async () => {
   return await Client.find();
 };
-
+export const total = async () => {
+  return await Client.countDocuments({ eliminado: false });
+};
+export const findById = async (req) => {
+  const id = req.params.id;
+  const cliente = await Client.findById(id);
+  if (cliente) return {"client":cliente};
+  else throw new Error("No existe cliente");
+};
 export const save = async (req) => {
   try {
     const exist = await Client.findOne({ cel: req.body.cel });
     if (exist) {
-      throw new Error("Cliente regristrado");
+      throw new RegistroError("Ya se encuentra registrado");
       return;
     }
     const cliente = await new Client(req.body);
