@@ -3,7 +3,6 @@ import { MessageMedia } from "whatsapp-web.js";
 import QRCode from "qrcode";
 import fs from "fs";
 import wsp from "../vendors/whatsapps";
-import RegistroError from "../errors/registro";
 
 export const findAll = async () => {
   return await Client.find({ eliminado: false }).sort({
@@ -27,7 +26,7 @@ export const save = async (req) => {
   try {
     const exist = await Client.findOne({ cel: req.body.cel });
     if (exist) {
-      throw new RegistroError("Ya se encuentra registrado");
+      throw new Error("Ya se encuentra registrado");
       return;
     }
     const cliente = await new Client(req.body);

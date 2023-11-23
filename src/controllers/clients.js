@@ -6,7 +6,6 @@ import {
   total,
   sendQrWsp,
 } from "../services/clients";
-import cutMessageError from "../utils/util";
 
 export const add = async (req, res) => {
   if (!req.body.dinero) req.body.dinero = "0";
