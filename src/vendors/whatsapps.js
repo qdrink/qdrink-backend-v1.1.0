@@ -18,7 +18,7 @@ wsp.on("ready", () => {
 });
 
 wsp.on("message", async (message) => {
-  console.log(chatInicio(message.body.substring(0, 39)));
+
   if (chatInicio(message.body.substring(0, 39))) {
     try {
       var nom = message.body.substring(39);
