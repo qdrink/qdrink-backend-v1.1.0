@@ -19,7 +19,7 @@ wsp.on("ready", () => {
 
 wsp.on("message", async (message) => {
 
-  if (chatInicio(message.body.substring(0, 39))) {
+ /* if (chatInicio(message.body.substring(0, 39))) {
     try {
       var nom = message.body.substring(39);
       var celular = message.from.split("@")[0];
@@ -29,7 +29,7 @@ wsp.on("message", async (message) => {
       console.log(error.message);
       message.reply(error.message || "No se pudo registrar su número");
     }
-  }
+  }*/
   console.log("He recibido un msje de " + message.from);
 });
 

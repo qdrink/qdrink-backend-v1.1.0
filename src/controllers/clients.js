@@ -6,6 +6,8 @@ import {
   total,
   sendQrWsp,
 } from "../services/clients";
+import { chatInicio } from "../utils/bot";
+
 
 export const add = async (req, res) => {
   if (!req.body.dinero) req.body.dinero = "0";
@@ -58,4 +60,13 @@ export const sendQr = async (req, res) => {
   } catch (e) {
     res.status(500).send({ message: e });
   }
+};
+export const compromise = async (req, res) => {
+try {
+  console.log(req.body.texto)
+  console.log(chatInicio(req.body.texto))
+  res.send(req.body)
+} catch (error) {
+  res.status(500).send({   message: error.message});
+}
 };
