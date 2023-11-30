@@ -3,7 +3,6 @@ import Transaction from "../model/transaction";
 import wsp from "../vendors/whatsapps";
 
 export const save = async (req) => {
-  try {
     const id = req.body.client;
     const cliente = await Client.findById(id);
     if (cliente) {
@@ -23,10 +22,6 @@ export const save = async (req) => {
       transaccion.client = cliente;
       return await transaccion.save();
     } else throw new Error("No existe cliente");
-  } catch (error) {
-    console.log(error);
-    throw new Error(error);
-  }
 };
 export const total = async (ingreso) => {
   if (ingreso === undefined)

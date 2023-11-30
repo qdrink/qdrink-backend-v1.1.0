@@ -23,7 +23,6 @@ export const findById = async (req) => {
 };
 
 export const save = async (req) => {
-  try {
     const exist = await Client.findOne({ cel: req.body.cel });
     if (exist) {
       throw new Error("Ya se encuentra registrado");
@@ -31,13 +30,9 @@ export const save = async (req) => {
     }
     const cliente = await new Client(req.body);
     return await cliente.save();
-  } catch (error) {
-    throw new Error(error);
-  }
 };
 
 export const consume = async (req) => {
-  try {
     const id = req.params.id;
     const cliente = await Client.findById(id);
     if (cliente) {
@@ -49,9 +44,6 @@ export const consume = async (req) => {
         } else throw new Error("Cliente ocupado");
       } else throw new Error("Cliente sin dinero");
     } else throw new Error("No existe cliente");
-  } catch (error) {
-    throw new Error(error);
-  }
 };
 
 export const sendQrWsp = async (req) => {
