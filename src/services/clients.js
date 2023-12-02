@@ -3,6 +3,7 @@ import { MessageMedia } from "whatsapp-web.js";
 import QRCode from "qrcode";
 import fs from "fs";
 import wsp from "../vendors/whatsapps";
+import client from "../model/client";
 
 export const findAll = async () => {
   return await Client.find({ eliminado: false }).sort({
@@ -58,4 +59,15 @@ export const sendQrWsp = async (req) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+export const edit = async (req) => {
+  const id = req.params.id;
+  const cliente = await Client.findById(id);
+  if(cliente){
+    await Client.findByIdAndUpdate({ _id: id }, req.body);
+    return await Client.findById(id);
+  }
+ else
+    throw new Error("No se encuentra registrado");
+    return;
 };

@@ -4,6 +4,7 @@ import {
   consume,
   save,
   total,
+  edit,
   sendQrWsp,
 } from "../services/clients";
 import { chatInicio } from "../utils/bot";
@@ -36,8 +37,14 @@ export const info = async (req, res) => {
   return res.send({ clients });
 };
 export const get = async (req, res) => {
+  try{
   const cliente = await findById(req);
   return res.send(cliente);
+  }catch(error){
+    res.status(500).send({
+      message: error.message || "Some error occurred while get the client",
+    });
+  }
 };
 export const getForConsume = async (req, res) => {
   try {
@@ -69,4 +76,20 @@ try {
 } catch (error) {
   res.status(500).send({   message: error.message});
 }
+};
+export const put = async (req, res) => {
+  if (!req.body.cel || !req.body.nombre) {
+    res
+      .status(400)
+      .send({ message: "Money or name can not be empty" });
+    return;
+  }
+  try {
+    const edited = await edit(req);
+    res.send(edited);
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || "Some error occurred while creating the client",
+    });
+  }
 };
